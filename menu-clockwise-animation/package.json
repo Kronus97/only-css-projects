@@ -9,9 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "webpack": "^5.45.1"
-  },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/eslint-parser": "^7.14.7",
@@ -31,6 +28,7 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-order": "^4.1.0",
     "terser-webpack-plugin": "^5.1.4",
+    "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   }
