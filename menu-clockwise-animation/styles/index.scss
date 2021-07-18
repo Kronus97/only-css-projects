@@ -1,0 +1,145 @@
+$menu-size: 40px;
+$menu-color: white;
+$menu-transition: transform .5s, top .5s;
+
+$item-count: 6;
+$item-size: $menu-size * 2;
+$item-color: white;
+$item-transition: .5s;
+
+
+@mixin center {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin bar {
+    @include size($menu-size, $menu-size/8);
+
+    display: block;
+    z-index: 1;
+    border-radius: $menu-size / 16;
+    background-color: rgba($menu-color, 0.7);
+    transition: $menu-transition;
+}
+
+body {
+    background-color: #000;
+}
+
+.menu__toggler {
+    @include center;
+    @include size($menu-size);
+
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover + label,
+    &:hover + label:before,
+    &:hover + label:after {
+        background: $menu-color;
+    }
+}
+
+.menu__toggler:checked {
+    & + label {
+        background: transparent;
+    }
+
+    & + label:before,
+    & + label:after {
+        top: 0;
+        width: $menu-size;
+        // transform-origin: 50% 50%;
+    }
+
+    & + label:before {
+        transform: rotate(45deg);
+    }
+
+    & + label:after {
+        transform: rotate(-45deg);
+    }
+}
+
+.menu__toggler:checked ~ ul {
+    .menu__item {
+        opacity: 1;
+    }
+
+    .menu__item a {
+        pointer-events: auto;
+    }
+
+    @for $i from 0 through $item-count - 1 {
+        .menu__item:nth-child(#{$i + 1}) {
+            transform: rotate(360deg / $item-count * $i) translateX(-$item-size - 30px);
+        }
+    }
+}
+
+.menu__toggler + label {
+    @include center;
+    @include bar;
+
+    &:before,
+    &:after {
+        @include bar;
+
+        content: "";
+        position: absolute;
+        left: 0;
+    }
+
+    &:before {
+        top: $menu-size / 4;
+    }
+
+    &:after {
+        top: -$menu-size / 4;
+    }
+}
+
+@for $i from 0 through $item-count - 1 {
+    .menu__item:nth-child(#{$i + 1}) a {
+        transform: rotate(-360deg / $item-count * $i)
+    }
+}
+
+.menu__item {
+    @include center; 
+    @include size($menu-size);
+
+    display: block;
+    opacity: 0;
+    transition: $item-transition;
+}
+
+.menu__item a {
+    display: flex;
+    width: inherit;
+    height: inherit;
+    line-height: $item-size;
+    color: rgba($item-color, 0.7);
+    background-color: rgba($item-color, 0.2);
+    border-radius: 50%;
+    text-align: center;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    font-size: $item-size / 2;
+    pointer-events: none;
+    transition: .2s;
+
+}
