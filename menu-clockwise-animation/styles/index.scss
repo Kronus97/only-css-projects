@@ -142,4 +142,8 @@ body {
     pointer-events: none;
     transition: .2s;
 
+    &:hover {
+        color: $item-color;
+        background-color: rgba($item-color, 0.3);
+    }
 }
