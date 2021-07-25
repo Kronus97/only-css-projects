@@ -1,0 +1,78 @@
+$bg-color: #000;
+$fg-color: #FFF;
+$title-font-size: clamp(1rem, 3vw + 1rem, 4rem);
+$subtitle-font-size: 2rem;
+$typewriter-animation-steps: 14; // based on the total number of characters inside the title
+$typewriter-animation-speed: 3s;
+$font-family: 'Fira Mono', monospace;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-family;
+    background-color: $bg-color;
+}
+
+.title {
+    position: relative;
+    font-size: $title-font-size;
+    color: $fg-color;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    &:before {
+        background-color: $bg-color;
+        animation: typewriter $typewriter-animation-speed steps($typewriter-animation-steps) 1s forwards;
+    }
+
+    &:after {
+        width: 0.125em;
+        background-color: $fg-color;
+        animation: 
+            typewriter $typewriter-animation-speed steps($typewriter-animation-steps) 1s forwards,
+            blink 700ms steps($typewriter-animation-steps) infinite;
+    }
+
+}
+
+.greeting {
+    color: $fg-color;
+    font-size: $subtitle-font-size;
+    opacity: 0;
+    transform: translateY(3rem);
+    animation: fadeInFromBottom 2s ease $typewriter-animation-speed + 2 forwards;
+}
+
+@keyframes typewriter {
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes blink {
+    to {
+        background-color: transparent;
+    }
+}
+
+@keyframes fadeInFromBottom {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
